@@ -1,7 +1,6 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class kalkulator {
