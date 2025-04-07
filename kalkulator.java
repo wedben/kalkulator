@@ -4,12 +4,17 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class kalkulator {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        DecimalFormat df = new DecimalFormat("#.####################"); // Формат для 20 знаков после запятой
+    private final Scanner scanner;
+    private final DecimalFormat df;
 
+    public kalkulator() {
+        this.scanner = new Scanner(System.in);
+        this.df = new DecimalFormat("#.####################");
+    }
+
+    public void run() {
         System.out.println("Введите первое число:");
-        BigDecimal result = readBigDecimal(scanner);
+        BigDecimal result = readBigDecimal();
 
         while (true) {
             System.out.println("Введите оператор (+, -, *, /) или 'q' для выхода:");
@@ -28,7 +33,7 @@ public class kalkulator {
             char operator = input.charAt(0);
 
             System.out.println("Введите следующее число:");
-            BigDecimal num = readBigDecimal(scanner);
+            BigDecimal num = readBigDecimal();
 
             try {
                 switch (operator) {
@@ -43,7 +48,6 @@ public class kalkulator {
                         break;
                     case '/':
                         if (num.compareTo(BigDecimal.ZERO) != 0) {
-                            // Деление с округлением до 20 знаков после запятой
                             result = result.divide(num, 20, RoundingMode.HALF_UP);
                         } else {
                             System.out.println("Ошибка: деление на ноль!");
@@ -57,17 +61,16 @@ public class kalkulator {
             }
 
             System.out.println("Текущий результат: \u001B[32m" + df.format(result) + "\u001B[0m");
-
         }
 
         scanner.close();
     }
 
-    private static boolean isValidOperator(char operator) {
+    private boolean isValidOperator(char operator) {
         return operator == '+' || operator == '-' || operator == '*' || operator == '/';
     }
 
-    private static BigDecimal readBigDecimal(Scanner scanner) {
+    private BigDecimal readBigDecimal() {
         while (true) {
             try {
                 String input = scanner.next();
