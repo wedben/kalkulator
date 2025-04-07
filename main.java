@@ -1,6 +1,7 @@
 public class main {
     public static void main(String[] args) {
-        kalkulator calculator = new kalkulator();
-        calculator.run();
+        CalculatorOperations calculator = new BasicCalculator();
+        CalculatorUI ui = new CalculatorUI(calculator);
+        ui.run();
     }
 }
